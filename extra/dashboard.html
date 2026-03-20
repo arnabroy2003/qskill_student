@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body style="font-family: Arial; text-align:center; margin-top:80px;">
+
+    <h2>Welcome to Dashboard</h2>
+
+    <h3>Name: {{ name }}</h3>
+
+    <h4>Domains:</h4>
+    <ul style="list-style:none;">
+        {% for domain in domains %}
+            <li>Domain {{ loop.index }}: {{ domain }}</li>
+        {% endfor %}
+    </ul>
+
+    <h4>IDs:</h4>
+    <ul style="list-style:none;">
+        {% for id in ids %}
+            <li>ID {{ loop.index }}: {{ id }}</li>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <a href="/">Logout</a>
+
+</body>
+</html>

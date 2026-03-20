@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qskill | Student Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #070a13; color: white; margin: 0; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+        }
+
+        /* Custom Scrollbar for the Main Content Area */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.2);
+            border-radius: 20px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(56, 189, 248, 0.5); }
+
+        .dropdown-animate {
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col lg:flex-row bg-[#070a13] text-white overflow-x-hidden">
+
+    <div class="lg:hidden flex items-center justify-between p-4 bg-[#070a13] border-b border-white/5 sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg overflow-hidden shadow-lg">
+    <img src="{{ url_for('static', filename='images/q.png') }}" 
+         alt="Q Logo"
+         class="w-full h-full object-cover">
+</div>
+            <span class="font-bold tracking-tight">Qskill <span class="text-sky-400"></span>Student</span>
+        </div>
+        <button id="menuToggle" class="p-2 text-slate-400 hover:text-white transition-colors">
+            <svg id="menuIcon" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-[#070a13] border-r border-white/5 p-8 flex flex-col transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0 transition-transform duration-300 ease-in-out">
+        <div class="flex items-center gap-3 mb-12">
+            <div class="w-8 h-8 rounded-lg overflow-hidden shadow-lg">
+    <img src="{{ url_for('static', filename='images/q.png') }}" 
+         alt="Q Logo"
+         class="w-full h-full object-cover">
+</div>
+            <span class="text-xl font-bold tracking-tight">Qskill <span class="text-sky-400">Student</span></span>
+        </div>
+        
+        <nav class="space-y-4 flex-1">
+            <a href="#" class="sidebar-item flex items-center gap-4 p-3 rounded-xl transition-all text-sky-400 bg-sky-400/10">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Dashboard
+            </a>
+            <a href="#" class="sidebar-item flex items-center gap-4 p-3 rounded-xl transition-all text-slate-400">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                My Task List
+            </a>
+        </nav>
+
+        <div class="space-y-3 mt-auto">
+            <a href="https://wa.me/yourgroup" target="_blank" 
+class="bg-green-500/15 text-green-400 p-4 rounded-2xl flex items-center gap-3 
+border border-green-500/30 hover:bg-green-500/25 hover:text-green-300 
+transition-all text-sm font-semibold">
+
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+<path d="M20.52 3.48A11.8 11.8 0 0012.05 0C5.4 0 .02 5.38.02 12.03c0 2.12.55 4.2 1.6 6.03L0 24l6.12-1.6a11.96 11.96 0 005.93 1.51h.01c6.65 0 12.03-5.38 12.03-12.03 0-3.21-1.25-6.23-3.57-8.4zM12.06 21.8c-1.82 0-3.6-.49-5.16-1.41l-.37-.22-3.63.95.97-3.54-.24-.37a9.77 9.77 0 01-1.5-5.18c0-5.44 4.43-9.87 9.87-9.87 2.63 0 5.1 1.03 6.96 2.89a9.77 9.77 0 012.89 6.96c0 5.44-4.43 9.87-9.87 9.87zm5.42-7.38c-.3-.15-1.77-.87-2.05-.97-.27-.1-.47-.15-.66.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.89-.79-1.5-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.09 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/>
+</svg>
+
+Join WhatsApp Group
+</a>
+            <a href="https://wa.me/yourgroup" target="_blank" class="bg-sky-500/10 text-sky-400 p-4 rounded-2xl flex items-center gap-3 border border-sky-500/20 hover:bg-sky-500/20 transition-all text-sm font-medium">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.9.9L21 3.5Z"/></svg>
+                Live Chat Help
+            </a>
+        </div>
+    </aside>
+
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden lg:hidden"></div>
+
+    <main class="flex-1 h-screen overflow-y-auto p-4 md:p-8 custom-scrollbar">
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+            <div>
+                <h2 class="text-3xl font-bold tracking-tight">Hello, <span class="gradient-text">{{name}}</span> 👋</h2>
+                <p class="text-slate-500">Welcome back to your internship dashboard.</p>
+            </div>
+
+            <div class="relative group">
+                <div id="profileTrigger" class="flex items-center gap-5 bg-white/5 p-3 pr-8 rounded-full border border-white/10 hover:border-white/20 transition-all cursor-pointer">
+                    <div class="relative">
+                        <img id="displayPhoto" src="https://ui-avatars.com/api/?name={{ name.replace(' ', '+') }}&background=0ea5e9&color=fff" 
+                             class="w-16 h-16 rounded-full object-cover border-2 border-sky-500 p-0.5">
+                        <div class="absolute bottom-0 right-0 bg-sky-500 p-1.5 rounded-full border-2 border-[#070a13] shadow-lg">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                        </div>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-lg font-bold text-white leading-none mb-1">Add Profile Photo</p>
+                        <p class="text-xs text-sky-400 uppercase tracking-widest font-semibold">Profile Settings</p>
+                    </div>
+                </div>
+
+                <div id="profileDropdown" class="absolute right-0 mt-3 w-56 glass-panel p-2 z-50 hidden dropdown-animate">
+                    <button class="w-full flex items-center gap-3 p-3 text-sm text-slate-300 hover:bg-white/5 rounded-xl transition-all">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Upload New Photo
+                    </button>
+                    <button class="w-full flex items-center gap-3 p-3 text-sm text-red-400 hover:bg-red-500/10 rounded-xl transition-all">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                        Remove Photo
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-8">
+                <div class="glass-panel p-6">
+                    <h3 class="text-lg font-semibold mb-6 flex items-center gap-2">
+                        <span class="w-1 h-6 bg-sky-500 rounded-full"></span>
+                        Active Programs
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+
+    {% for domain, id in student_data %}
+    <div class="bg-white/5 border border-white/10 p-5 rounded-2xl hover:border-sky-500/30 transition-all">
+        
+        <div class="flex justify-between mb-4">
+            <span class="px-3 py-1 bg-sky-500/20 text-sky-400 text-xs rounded-full">
+                ID: {{ id }}
+            </span>
+            <span class="text-slate-500 text-xs">1 Month</span>
+        </div>
+
+        <h4 class="font-bold text-lg">{{ domain }}</h4>
+
+        <div class="mt-4 flex items-center justify-between text-sm">
+            <span class="text-slate-400">Deadline: 31st April 2026</span>
+            <span class="text-orange-400 font-medium">20 Days Left</span>
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+                </div>
+
+                <div class="glass-panel p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-semibold">Project Tasks</h3>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 text-xs font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20 rounded-lg hover:bg-sky-500 hover:text-white transition-all">Submit Github</button>
+                            <button class="px-4 py-2 text-xs font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-lg hover:bg-purple-500 hover:text-white transition-all">Submit Zip</button>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <label class="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/5 cursor-pointer hover:bg-white/10 transition-all">
+                            <input type="checkbox" class="task-check w-5 h-5 rounded border-white/10 bg-transparent text-sky-500 focus:ring-sky-500">
+                            <span class="text-slate-300">Task 1: Project Architecture Setup</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/5 cursor-pointer hover:bg-white/10 transition-all">
+                            <input type="checkbox" class="task-check w-5 h-5 rounded border-white/10 bg-transparent text-sky-500 focus:ring-sky-500">
+                            <span class="text-slate-300">Task 2: UI Implementation with Tailwind</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/5 cursor-pointer hover:bg-white/10 transition-all">
+                            <input type="checkbox" class="task-check w-5 h-5 rounded border-white/10 bg-transparent text-sky-500 focus:ring-sky-500">
+                            <span class="text-slate-300">Task 3: Backend API Integration</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <div class="glass-panel p-6 flex flex-col items-center">
+                    <h3 class="text-lg font-semibold mb-4 w-full text-left">Overall Progress</h3>
+                    <div class="relative w-48 h-48">
+                        <canvas id="progressChart"></canvas>
+                        <div class="absolute inset-0 flex items-center justify-center flex-col">
+                            <span id="progressPercent" class="text-3xl font-bold">0%</span>
+                            <span class="text-[10px] text-slate-500 uppercase tracking-widest">Completed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6">
+                    <h3 class="text-lg font-semibold mb-4">Credentials</h3>
+                    <div class="space-y-3">
+                        <button id="openOfferModal" class="w-full flex justify-between items-center p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all group">
+                            <span class="text-sm text-slate-300">Offer Letter</span>
+                            <svg class="text-slate-500 group-hover:text-sky-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </button>
+                        <button class="w-full flex justify-between items-center p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all group">
+                            <span class="text-sm text-slate-300">Joining Letter</span>
+                            <svg class="text-slate-500 group-hover:text-sky-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </button>
+                        <div class="opacity-40 cursor-not-allowed w-full flex justify-between items-center p-3 bg-white/5 rounded-xl">
+                            <span class="text-sm text-slate-300">Certificate & LOR</span>
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel p-6 bg-amber-500/5 border-amber-500/20">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
+                        <h3 class="text-xs font-bold text-amber-500 uppercase tracking-widest">New Announcement</h3>
+                    </div>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        The <b>v2.0 Project Review</b> is live! Ensure your GitHub repos are public before submitting for evaluation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="offerLetterModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity"></div>
+    
+    <div class="relative w-full max-w-lg glass-panel p-8 shadow-[0_0_50px_rgba(14,165,233,0.15)] border-white/20 dropdown-animate">
+        <button id="closeModal" class="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+
+        <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold mb-2">Select Your Domain</h3>
+            <p class="text-slate-400 text-sm">Choose the internship domain to generate your letter.</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-3">
+    {% set possible_domains = [
+        'Python Development', 
+        'Front-End Development', 
+        'Back-End Development', 
+        'Basic Web Development', 
+        'AI / Machine Learning'
+    ] %}
+
+    {% for domain in possible_domains %}
+        {# Simplified check: Does the domain exist in our dictionary? #}
+        {% if domain in active_offers %}
+            <a href="{{ active_offers[domain] }}" target="_blank" class="w-full p-4 rounded-2xl bg-white/5 border border-white/10 text-left hover:bg-sky-500/10 hover:border-sky-500/50 hover:scale-[1.02] transition-all flex justify-between items-center group">
+                <span class="font-medium text-white">{{ domain }}</span>
+                <div class="flex items-center gap-2">
+                    <span class="text-[10px] text-sky-400 font-bold uppercase tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity">Download</span>
+                    <svg class="text-sky-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </div>
+            </a>
+        {% else %}
+            <button disabled class="w-full p-4 rounded-2xl bg-white/[0.02] border border-white/5 text-left opacity-30 cursor-not-allowed flex justify-between items-center">
+                <span class="font-medium text-slate-500">{{ domain }}</span>
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-slate-700"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </button>
+        {% endif %}
+    {% endfor %}
+</div>
+    </div>
+</div>
+
+    <script>
+        // Sidebar Toggle Logic
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const menuIcon = document.getElementById('menuIcon');
+
+        function toggleSidebar() {
+            const isOpen = sidebar.classList.contains('translate-x-0');
+            if (isOpen) {
+                sidebar.classList.replace('translate-x-0', '-translate-x-full');
+                overlay.classList.add('hidden');
+                menuIcon.innerHTML = '<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+            } else {
+                sidebar.classList.replace('-translate-x-full', 'translate-x-0');
+                overlay.classList.remove('hidden');
+                menuIcon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+            }
+        }
+
+        menuToggle.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+
+        // Profile Dropdown
+        const trigger = document.getElementById('profileTrigger');
+        const dropdown = document.getElementById('profileDropdown');
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('hidden');
+        });
+
+        window.addEventListener('click', () => dropdown.classList.add('hidden'));
+
+        // Progress Chart
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [0, 100],
+                    backgroundColor: ['#38bdf8', 'rgba(255,255,255,0.05)'],
+                    borderWidth: 0,
+                    borderRadius: 10,
+                }]
+            },
+            options: { cutout: '85%', plugins: { tooltip: { enabled: false } } }
+        });
+
+        // Task Interaction
+        const checkboxes = document.querySelectorAll('.task-check');
+        const progressLabel = document.getElementById('progressPercent');
+
+        checkboxes.forEach(box => {
+            box.addEventListener('change', () => {
+                const checkedCount = document.querySelectorAll('.task-check:checked').length;
+                const percent = Math.round((checkedCount / checkboxes.length) * 100);
+                myChart.data.datasets[0].data = [percent, 100 - percent];
+                myChart.update();
+                progressLabel.innerText = percent + '%';
+            });
+        });
+
+        // Modal Element Selectors
+// --- FIXED MODAL LOGIC ---
+const offerModal = document.getElementById('offerLetterModal');
+const openBtn = document.getElementById('openOfferModal'); 
+const closeBtn = document.getElementById('closeModal');
+
+// Open Modal
+if (openBtn) {
+    openBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        offerModal.classList.remove('hidden');
+        // Optional: add 'flex' if hidden removes the display type
+        offerModal.classList.add('flex'); 
+        document.body.style.overflow = 'hidden'; 
+    });
+}
+
+// Close Modal function
+const closeModalFunc = () => {
+    offerModal.classList.add('hidden');
+    offerModal.classList.remove('flex');
+    document.body.style.overflow = 'auto';
+};
+// --- END FIX ---
+
+closeBtn.addEventListener('click', closeModalFunc);
+
+// Close when clicking outside content
+offerModal.addEventListener('click', (e) => {
+    if (e.target === offerModal) closeModalFunc();
+});
+
+// Domain Button Actions
+document.querySelectorAll('.domain-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const domain = this.querySelector('span').innerText;
+        alert('Generating Offer Letter for: ' + domain);
+        closeModalFunc();
+    });
+});
+    </script>
+</body>
+</html>
