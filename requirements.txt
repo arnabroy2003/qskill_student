@@ -1,2 +1,6 @@
 flask
 supabase
+cloudinary
+dotenv
+requests
+datetime
