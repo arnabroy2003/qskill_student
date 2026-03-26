@@ -54,7 +54,7 @@
     <div class="w-full max-w-md z-10">
         <div class="flex flex-col items-center mb-10 transition-all duration-1000 transform translate-y-0 opacity-100">
             <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4 border border-white/20 shadow-xl">
-                <span class="text-3xl font-bold bg-gradient-to-r from-sky-400 to-indigo-400 bg-clip-text text-transparent">Q</span>
+                <img src="{{ url_for('static', filename='images/q.png') }}" alt="Q Logo" class="h-14 w-auto">
             </div>
             <h1 class="text-white text-2xl font-semibold tracking-tight">Welcome to Qskill</h1>
             <p class="text-slate-400 text-sm mt-2">Elevate your learning journey</p>
@@ -63,14 +63,14 @@
         <div class="glass-card rounded-3xl p-10 transition-all duration-500 hover:border-white/20">
             <form id="loginForm" class="space-y-6" method="POST" action="/">
                 <div class="space-y-2">
-                    <label for="email" class="text-xs font-medium text-slate-400 uppercase tracking-widest ml-1">Student Email</label>
+                    <label for="email" class="text-xs font-medium text-slate-400 uppercase tracking-widest ml-1">Registerd Email</label>
                     <div class="relative group">
                         <input 
                             type="email" 
                             id="email" 
                             name="email"
                             required
-                            placeholder="name@university.edu"
+                            placeholder="example@gmail.com"
                             class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500/50 transition-all duration-300"
                         >
                     </div>
