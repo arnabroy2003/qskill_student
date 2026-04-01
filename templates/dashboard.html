@@ -138,7 +138,7 @@ transition-all text-sm font-semibold">
 
 Join WhatsApp Group
 </a>
-            <a href="#" target="_blank" class="bg-sky-500/10 text-sky-400 p-4 rounded-2xl flex items-center gap-3 border border-sky-500/20 hover:bg-sky-500/20 transition-all text-sm font-medium">
+            <a href="https://qskill-helpdesk.vercel.app/" target="_blank" class="bg-sky-500/10 text-sky-400 p-4 rounded-2xl flex items-center gap-3 border border-sky-500/20 hover:bg-sky-500/20 transition-all text-sm font-medium">
                 <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.9.9L21 3.5Z"/></svg>
                 Live Chat Help
             </a>
@@ -260,7 +260,7 @@ Join WhatsApp Group
         <h4 class="font-bold text-lg">{{ domain }}</h4>
 
         <div class="mt-4 flex items-center justify-between text-sm">
-            <span class="text-slate-400">Deadline: 31st April 2026</span>
+            <span class="text-slate-400">Deadline: 1st May 2026</span>
             <span class="daysLeft text-orange-400 font-medium"></span>
         </div>
 
@@ -314,10 +314,38 @@ Join WhatsApp Group
                             <span class="text-sm text-slate-300">Offer Letter</span>
                             <svg class="text-slate-500 group-hover:text-sky-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         </button>
-                        <button class="w-full flex justify-between items-center p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all group">
-                            <span class="text-sm text-slate-300">Joining Letter</span>
-                            <svg class="text-slate-500 group-hover:text-sky-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        </button>
+                       <button onclick="openModal()" class="w-full flex justify-between items-center p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all group">
+    <span class="text-sm text-slate-300">Joining Letter</span>
+    <svg class="text-slate-500 group-hover:text-sky-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+</button>
+
+<!-- Modal -->
+<div id="modal" class="fixed inset-0 bg-black/60 hidden items-center justify-center">
+    <div class="bg-slate-900 p-6 rounded-xl text-center max-w-sm w-full">
+        <h2 class="text-xl font-bold text-red-400 mb-3">404 Not Found</h2>
+        <p class="text-slate-300 text-sm mb-4">
+            Joining letter will be released after you join.<br>
+            It may take up to a week after the internship starts.
+        </p>
+        <button onclick="closeModal()" class="px-4 py-2 bg-sky-500 rounded-lg text-white">OK</button>
+    </div>
+</div>
+
+<script>
+function openModal() {
+    document.getElementById("modal").classList.remove("hidden");
+    document.getElementById("modal").classList.add("flex");
+}
+
+function closeModal() {
+    document.getElementById("modal").classList.add("hidden");
+    document.getElementById("modal").classList.remove("flex");
+}
+</script>
                         <div class="opacity-40 cursor-not-allowed w-full flex justify-between items-center p-3 bg-white/5 rounded-xl">
                             <span class="text-sm text-slate-300">Certificate & LOR</span>
                             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -344,6 +372,7 @@ Join WhatsApp Group
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <a href="https://www.youtube.com/@QSkill-tutorial" target="_blank">
         <div class="glass-panel p-8 hover:border-sky-500/50 transition-all group cursor-pointer">
             <div class="w-14 h-14 bg-sky-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <svg class="text-sky-400" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
@@ -352,6 +381,7 @@ Join WhatsApp Group
             <p class="text-slate-400 text-sm mb-6">Watch previous session recordings and masterclasses.</p>
             <span class="text-sky-400 text-xs font-bold uppercase tracking-widest">View Playlist →</span>
         </div>
+        </a>
 
         <div class="glass-panel p-8 hover:border-purple-500/50 transition-all group cursor-pointer">
             <div class="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -384,7 +414,7 @@ Join WhatsApp Group
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <a href="#" class="flex items-center justify-between p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-sky-500/40 hover:bg-sky-500/5 transition-all group">
+        <a href="https://drive.google.com/file/d/1nQRRtE9J2_2DFL1Lu_0q0mPkJABleDqe/view?usp=sharing" class="flex items-center justify-between p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-sky-500/40 hover:bg-sky-500/5 transition-all group">
             <div class="flex items-center gap-4">
                 <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="text-sky-400" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
@@ -394,7 +424,7 @@ Join WhatsApp Group
             <svg class="text-slate-600 group-hover:text-sky-400 transition-colors" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
         </a>
 
-        <a href="#" class="flex items-center justify-between p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-purple-500/40 hover:bg-purple-500/5 transition-all group">
+        <a href="https://drive.google.com/file/d/1Bu7tkdfQ2iroetEkCkdntM6rTN_Z2kIU/view?usp=sharing" class="flex items-center justify-between p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-purple-500/40 hover:bg-purple-500/5 transition-all group">
             <div class="flex items-center gap-4">
                 <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="text-purple-400" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
@@ -404,7 +434,7 @@ Join WhatsApp Group
             <svg class="text-slate-600 group-hover:text-purple-400 transition-colors" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
         </a>
 
-        <a href="#" class="flex items-center justify-between p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all group">
+        <a href="https://drive.google.com/file/d/1zaBCk2z4AKi3z0UaaTPDwp2ifWpKmSYc/view?usp=sharing" class="flex items-center justify-between p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all group">
             <div class="flex items-center gap-4">
                 <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="text-emerald-400" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M5 12l4-4m-4 4l4 4"/></svg>
@@ -414,7 +444,7 @@ Join WhatsApp Group
             <svg class="text-slate-600 group-hover:text-emerald-400 transition-colors" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
         </a>
 
-        <a href="#" class="flex items-center justify-between p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-orange-500/40 hover:bg-orange-500/5 transition-all group">
+        <a href="https://drive.google.com/file/d/1R7t_A13vht8OoIjZ35M233a7zGKVRR1L/view?usp=sharing" class="flex items-center justify-between p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-orange-500/40 hover:bg-orange-500/5 transition-all group">
             <div class="flex items-center gap-4">
                 <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="text-orange-400" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
@@ -424,7 +454,7 @@ Join WhatsApp Group
             <svg class="text-slate-600 group-hover:text-orange-400 transition-colors" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
         </a>
 
-        <a href="#" class="flex items-center justify-between p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-rose-500/40 hover:bg-rose-500/5 transition-all group">
+        <a href="https://drive.google.com/file/d/1Z-LkmYi0mrm_k662LeawKLqxdnTJSCik/view?usp=sharing" class="flex items-center justify-between p-5 bg-white/5 rounded-2xl border border-white/5 hover:border-rose-500/40 hover:bg-rose-500/5 transition-all group">
             <div class="flex items-center gap-4">
                 <div class="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="text-rose-400" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
