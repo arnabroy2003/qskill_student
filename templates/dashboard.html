@@ -138,7 +138,7 @@ transition-all text-sm font-semibold">
 
 Join WhatsApp Group
 </a>
-            <a href="https://qskill-helpdesk.vercel.app/" target="_blank" class="bg-sky-500/10 text-sky-400 p-4 rounded-2xl flex items-center gap-3 border border-sky-500/20 hover:bg-sky-500/20 transition-all text-sm font-medium">
+            <a href="https://helpdesk.qskill.in/" target="_blank" class="bg-sky-500/10 text-sky-400 p-4 rounded-2xl flex items-center gap-3 border border-sky-500/20 hover:bg-sky-500/20 transition-all text-sm font-medium">
                 <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.9.9L21 3.5Z"/></svg>
                 Live Chat Help
             </a>
@@ -274,9 +274,20 @@ Join WhatsApp Group
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-semibold">Project Tasks</h3>
                         <div class="flex gap-2">
-                            <button class="px-4 py-2 text-xs font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20 rounded-lg hover:bg-sky-500 hover:text-white transition-all">Submit Github</button>
-                            <button class="px-4 py-2 text-xs font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-lg hover:bg-purple-500 hover:text-white transition-all">Submit Zip</button>
+                            <button onclick="openModal()" class="px-4 py-2 text-xs font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20 rounded-lg hover:bg-sky-500 hover:text-white transition-all">Submit Github</button>
+                            <button onclick="openModal()" class="px-4 py-2 text-xs font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-lg hover:bg-purple-500 hover:text-white transition-all">Submit Zip</button>
                         </div>
+                        <div id="submissionModal" class="fixed inset-0 flex items-center justify-center bg-black/50 hidden z-50">
+    <div class="bg-white rounded-xl p-6 w-80 text-center shadow-lg">
+        <h2 class="text-lg font-semibold text-gray-800 mb-2">Submission Closed</h2>
+        <p class="text-sm text-gray-600 mb-4">
+            Submissions are currently closed. The submission portal will be available starting 15th April.
+        </p>
+        <button onclick="closeModal()" class="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600">
+            OK
+        </button>
+    </div>
+</div>
                     </div>
                     <div class="space-y-4">
                         <label class="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/5 cursor-pointer hover:bg-white/10 transition-all">
@@ -314,7 +325,7 @@ Join WhatsApp Group
                             <span class="text-sm text-slate-300">Offer Letter</span>
                             <svg class="text-slate-500 group-hover:text-sky-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         </button>
-                       <button onclick="openModal()" class="w-full flex justify-between items-center p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all group">
+                       <button onclick="openModal2()" class="w-full flex justify-between items-center p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all group">
     <span class="text-sm text-slate-300">Joining Letter</span>
     <svg class="text-slate-500 group-hover:text-sky-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -336,7 +347,7 @@ Join WhatsApp Group
 </div>
 
 <script>
-function openModal() {
+function openModal2() {
     document.getElementById("modal").classList.remove("hidden");
     document.getElementById("modal").classList.add("flex");
 }
@@ -527,6 +538,13 @@ function closeModal() {
 </div>
 
     <script>
+        function openModal() {
+    document.getElementById("submissionModal").classList.remove("hidden");
+}
+
+function closeModal() {
+    document.getElementById("submissionModal").classList.add("hidden");
+}
          function updateDaysLeft() {
     const targetDate = new Date("2026-04-31");
     const today = new Date();
