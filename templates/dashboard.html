@@ -247,7 +247,7 @@ Join WhatsApp Group
                     </h3>
                     <div class="grid md:grid-cols-2 gap-4">
 
-    {% for domain, id in student_data %}
+    {% for domain, id, joinning in student_data %}
     <div class="bg-white/5 border border-white/10 p-5 rounded-2xl hover:border-sky-500/30 transition-all">
         
         <div class="flex justify-between mb-4">
@@ -327,7 +327,7 @@ Join WhatsApp Group
                             <span class="text-sm text-slate-300">Offer Letter</span>
                             <svg class="text-slate-500 group-hover:text-sky-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         </button>
-                       <button onclick="openModal2()" class="w-full flex justify-between items-center p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all group">
+                       <button id="openJoiningModal" onclick="openModal2()" class="w-full flex justify-between items-center p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all group">
     <span class="text-sm text-slate-300">Joining Letter</span>
     <svg class="text-slate-500 group-hover:text-sky-400" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -337,7 +337,7 @@ Join WhatsApp Group
 </button>
 
 <!-- Modal -->
-<div id="modal" class="fixed inset-0 bg-black/60 hidden items-center justify-center">
+<!-- <div id="modal" class="fixed inset-0 bg-black/60 hidden items-center justify-center">
     <div class="bg-slate-900 p-6 rounded-xl text-center max-w-sm w-full">
         <h2 class="text-xl font-bold text-red-400 mb-3">404 Not Found</h2>
         <p class="text-slate-300 text-sm mb-4">
@@ -346,7 +346,7 @@ Join WhatsApp Group
         </p>
         <button onclick="closeModal()" class="px-4 py-2 bg-sky-500 rounded-lg text-white">OK</button>
     </div>
-</div>
+</div> -->
 
 <script>
 function openModal2() {
@@ -539,6 +539,54 @@ function closeModal() {
     </div>
 </div>
 
+<div id="joiningLetterModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden">
+    <div class="absolute inset-0 bg-neutral-950/40 backdrop-blur-xl transition-opacity duration-300"></div>
+
+    <div class="relative w-full max-w-md bg-white/[0.03] border border-white/[0.08] backdrop-blur-2xl rounded-3xl p-8 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden">
+        <div class="absolute -top-24 -left-24 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <button id="closeJoiningModal"
+            class="absolute top-6 right-6 text-neutral-400 hover:text-white bg-white/0 hover:bg-white/10 w-8 h-8 flex items-center justify-center rounded-full transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-white/20">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+
+        <h3 class="text-xl font-semibold tracking-tight text-white mb-6">
+            Select Your Domain
+        </h3>
+
+        <div class="space-y-3">
+            {% for domain in possible_domains %}
+                {% if domain in active_joinnings and active_joinnings[domain] %}
+
+                <a href="{{ active_joinnings[domain] }}"
+                   target="_blank"
+                   class="group w-full p-4 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.05] hover:border-white/[0.15] flex justify-between items-center transition-all duration-300 ease-out shadow-sm hover:shadow-md hover:-translate-y-0.5">
+
+                    <span class="font-medium text-neutral-200 group-hover:text-white transition-colors">{{ domain }}</span>
+                    
+                    <span class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-indigo-400 group-hover:text-indigo-300 transition-colors">
+                        Download
+                        <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </span>
+
+                </a>
+
+                {% else %}
+
+                <button disabled
+                    class="w-full p-4 rounded-xl border border-dashed border-white/[0.03] bg-white/[0.01] text-neutral-600 flex justify-between items-center cursor-not-allowed">
+
+                    <span class="font-medium text-neutral-500">{{ domain }}</span>
+                    <span class="text-xs font-medium text-neutral-600">Unavailable</span>
+
+                </button>
+
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
     <script>
         function openModal() {
     document.getElementById("submissionModal").classList.remove("hidden");
@@ -669,6 +717,27 @@ document.querySelectorAll('.domain-btn').forEach(btn => {
         alert('Generating Offer Letter for: ' + domain);
         closeModalFunc();
     });
+});
+
+const joiningModal = document.getElementById('joiningLetterModal');
+const openJoiningBtn = document.getElementById('openJoiningModal');
+const closeJoiningBtn = document.getElementById('closeJoiningModal');
+
+openJoiningBtn.addEventListener('click', () => {
+    joiningModal.classList.remove('hidden');
+    joiningModal.classList.add('flex');
+});
+
+closeJoiningBtn.addEventListener('click', () => {
+    joiningModal.classList.add('hidden');
+    joiningModal.classList.remove('flex');
+});
+
+joiningModal.addEventListener('click', (e) => {
+    if (e.target === joiningModal) {
+        joiningModal.classList.add('hidden');
+        joiningModal.classList.remove('flex');
+    }
 });
 
 window.addEventListener('DOMContentLoaded', () => {

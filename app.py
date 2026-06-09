@@ -137,9 +137,11 @@ def dashboard():
         domains = [d['domain'] for d in data][:5]
         ids = [d['id'] for d in data][:5]
         offer = [d['offer'] for d in data][:5]
+        joinnings = [d.get('joinning') for d in data][:5]
 
-        student_data = list(zip(domains, ids))
+        student_data = list(zip(domains, ids, joinnings))
         active_offers_dict = dict(zip(domains, offer))
+        active_joinning_dict = dict(zip(domains, joinnings))
 
         res = supabase.table("announcement").select("*").limit(1).execute()
 
@@ -167,6 +169,7 @@ def dashboard():
             student_data=student_data,
             active_domains=domains,
             active_offers=active_offers_dict,
+            active_joinnings=active_joinning_dict,
             show_notification=show_notification,
             announcement=announcement
         )
